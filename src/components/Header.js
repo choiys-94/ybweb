@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -61,9 +61,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SearchAppBar() {
+const Header = () => {
   const classes = useStyles();
-  console.log(classes);
+  const [nation, setNation] = useState("코타키나발루");
+  const onChangeNation = e => {
+    setNation(e.target.value);
+  };
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -77,7 +80,7 @@ export default function SearchAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Material-UI
+            {nation}
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -90,10 +93,14 @@ export default function SearchAppBar() {
                 input: classes.inputInput
               }}
               inputProps={{ "aria-label": "search" }}
+              value={nation}
+              onChange={onChangeNation}
             />
           </div>
         </Toolbar>
       </AppBar>
     </div>
   );
-}
+};
+
+export default Header;
